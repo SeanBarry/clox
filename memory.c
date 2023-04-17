@@ -9,8 +9,6 @@ void* reallocate(void* pointer, size_t oldSize, size_t newSize) {
   }
 
   void* result = realloc(pointer, newSize);
-  /** if there isn't enough memory realloc can return NULL.
-    * so we must handle that. */
   if (result == NULL) exit(1);
   return result;
 }
