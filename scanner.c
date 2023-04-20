@@ -67,7 +67,7 @@ static Token errorToken(const char* message) {
   token.type = TOKEN_ERROR;
   token.start = message;
   token.length = (int)strlen(message);
-  token.line = scanner.line
+  token.line = scanner.line;
   return token;
 }
 
@@ -144,6 +144,8 @@ static TokenType identifierType() {
     case 'v': return checkKeyword(1, 2, "ar", TOKEN_VAR);
     case 'w': return checkKeyword(1, 4, "hile", TOKEN_WHILE);
   }
+
+  return TOKEN_IDENTIFIER;
 }
 
 static Token identifier() {
@@ -176,6 +178,7 @@ static Token string() {
   // handle the closing quote
   advance();
   return makeToken(TOKEN_STRING);
+}
 
 Token scanToken() {
   skipWhitespace();
@@ -214,7 +217,7 @@ Token scanToken() {
           match('=') ? TOKEN_GREATER_EQUAL : TOKEN_GREATER);
     case '"': return string();
     }
-  }
 
   return errorToken("Unexpected character.");
 }
+
